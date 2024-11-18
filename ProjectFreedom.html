@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name ="viewport" content="width=device-width, initial-scale=1">
+		<title>Project Freedom</title>
+		<link rel="stylesheet" href="StyleSheet.css">
+		<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="navbar">
+				<div class="icon" onclick="showSection('profile')">
+					<h2 class="Name">
+                        <img src="Logo.jpeg" alt="Logo" style="height: 150px;">
+                    </h2>
+				</div>
+
+				<div class="menu">
+					<ul>
+						<li><a href="#" onclick="showSection('us')">ABOUT US</a></li>
+						<li><a href="#" onclick="showSection('mission')">MISSION</a></li>
+						<li><a href="#" onclick="showSection('team')">TEAM</a></li>
+                        <li><a href="#" onclick="showSection('gallery')">GALLERY</a></li>
+						<li><a href="#" onclick="showSection('contact')">CONTACT</a></li>
+					</ul>
+				</div>
+			</div>
+
+		<div class="content" id="profile">
+			<h1>Latest News<br></h1>
+			<p class="par">We are now requesting funding from local companies in order to buy the necessary components. If you wish to fund us, you can contact us in the contact section of our website.</p>
+		</div>
+
+		<div class="content" id="us" style="display: none;">
+			<h1>About us<br></h1>  
+			<p class="par">Project Freedom is a group of ambitious and dedicated year 12 students. We are a team representing <a href="https://www.mhchs.org.uk">Mill Hill County High School</a> in the CanSat competition, run by the European Space Agency, which provides a unique and exceptional opportunity for students to apply their engineering and scientific knowledge in a practical setting.<br></p>
+            <p class="par">If you wish to see live updates or more about our project, please follow our <a href="https://www.instagram.com/projectfreedom_cansat/profilecard/?igsh=MW0ya2dheGlyN3hsbg==">social media.</a></p>
+        </div>
+		<div class="content" id="mission" style="display: none;">
+			<h1>Mission<br></h1>
+			<p class="par">Our primary mission involves designing and coding a mini satellite inside a can and launching it into the sky to collect and transmit data (such as temperature and pressure) from the atmosphere, and transmit it to the ground station.<br></p>
+            <p class="par">Our Secondary mission involves successfully creating a landing gear. <br></p>
+            <p class="par">More information about CanSat and our mission can be found at <a href="https://www.stem.org.uk/esero/secondary/competitions-and-challenges/cansat">here.</a></p>
+		</div>
+		
+		<div class="content" id="team" style="display: none;">
+			<h1>Team</h1>
+            <p class="par"><strong>Kayden Chan:</strong> Project Manager, Coder, Marketing.<br></p>
+            <p class="par"><strong>Gabriele Oancea:</strong> Primary engineer, Coder, Ground station, System engineer.<br></p>
+            <p class="par"><strong>Nyan Naing:</strong> Coder, Budget manager, Marketing, Social Media Manager, Web developer.<br></p>
+            <p class="par"><strong>Benjamin Mwamba:</strong> Robotics engineer, Electrical engineer, Can designer.<br></p>
+            <p class="par"><strong>Egor Aldonin:</strong> Robotics engineer, Electrical engineer, Aerodynamics.<br></p>
+            <p class="par"><strong>Akira: </strong> Scientist, Geophysicist, Mechanical engineer.<br></p>
+		</div>
+
+        <div class="content" id="gallery" style="display: none;">
+            <h1>Gallery</h1>
+            <div class="image-gallery">
+                <img src="Can model.png" alt="The 3D model of our can.">
+                <img src="Parachute.jpeg" alt="Parachute design.">
+                <img src="Pressue.jpeg" alt="Pressure calibration teat.">
+                <img src="Landing gear.jpeg" alt="Building landing gears.">
+            </div>
+        </div>
+
+		<div class="content" id="contact" style="display: none;">
+			<h1>Contact</h1>
+			<form id="contact-form">
+				<label for="name">Your Name:</label>
+				<input type="text" id="name" name="user_name" required>
+
+				<label for="email">Your Email:</label>
+				<input type="email" id="email" name="user_email" required>
+
+				<label for="message">Your Message:</label>
+				<textarea id="message" name="user_message" required></textarea>
+
+				<button type="submit">Send Message</button>
+			</form>
+			<p id="form-status"></p>
+		</div>
+
+		</div>
+
+		<script>
+			function showSection(sectionId) {
+				const sections = document.querySelectorAll('.content');
+				sections.forEach(section => {
+					section.style.display = 'none';
+				});
+				
+				document.getElementById(sectionId).style.display = 'block';
+			}
+
+
+			(function() {
+
+				emailjs.init('1Kb4ejYlrZsbirskR');
+			})();
+
+			document.getElementById('contact-form').addEventListener('submit', function(event) {
+				event.preventDefault();
+
+				var form = event.target;
+				var formStatus = document.getElementById('form-status');
+				
+
+				emailjs.sendForm('service_dxa847o', 'template_cjljryf', form)
+					.then(function(response) {
+						console.log('SUCCESS!', response);
+						formStatus.textContent = 'Your message has been sent successfully!';
+						form.reset();
+					}, function(error) {
+						console.log('FAILED....', error);
+						formStatus.textContent = 'Sorry, something went wrong. Please try again later.';
+					});
+			});
+		</script>
+	</body>
+</html>
+
